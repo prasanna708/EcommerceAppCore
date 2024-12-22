@@ -1,0 +1,50 @@
+﻿@model Product
+
+@{
+    ViewData["Title"] = "GetProductByID";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<style>
+    h2 {
+        background-color: #6c757d;
+    }
+</style>
+<h2 class="text-center mt-3">Product Details</h2>
+
+        <table align="center" cellpadding="8">
+            <tr>
+                <td>
+            <img src="@Url.Content("~/" + Model.Photo)" width="200" height="200" alt="No Image" />
+                </td>
+                <td>
+                    <table align="center" cellpadding="5">
+                        <tr>
+                            <td>Product Id:</td>
+                            <td>
+                                @Model.ProductId
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Name:</td>
+                            <td>@Model.Name</td>
+                        </tr>
+                        <tr>
+                            <td>Price:</td>
+                            <td>&#8377;@Model.Price</td>
+                        </tr>
+                        <tr>
+                            <td>Available quamtity:</td>
+                            <td>@Model.Quantity</td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+
+        <div>
+            <a asp-action="GetProducts" asp-controller="Admin" asp-route-status="true" class="btn btn-secondary">
+                <i class="bi bi-skip-backward-fill"></i>
+                Back to Main Page
+            </a>
+        </div>
+    

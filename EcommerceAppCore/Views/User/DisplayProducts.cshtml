@@ -1,0 +1,51 @@
+﻿@model List<Product>
+
+@{
+    ViewData["Title"] = "DisplayProducts";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+<style>
+    .products {
+        display: grid;
+        grid-template-columns: repeat(4,auto);
+        color: black;
+    }
+
+    .product {
+        border: 2px solid;
+        background-color: aqua;
+        padding: 20px;
+        margin: 20px;
+        border-radius: 20px;
+    }
+
+    .products :hover {
+        transform: scale(1.05);
+        box-shadow: 0 0 3px black;
+    }
+
+</style>
+
+<h2 class="text-center text-light" style="background-color:#6c757d">Displaying All Products</h2>
+
+<div class="products">
+    @foreach (var product in Model)
+    {
+        <div class="product">
+            <img src="@Url.Content("~/" + product.Photo)" alt='@product.Name' width="150" height="250" />
+            <p>Name:@product.Name</p>
+            <p class="text-success">Price : &#8377; @product.Price</p>
+            <p class="text-success">Available Quantity : @product.Quantity</p>
+            <div class="align-content-center">
+                <a asp-controller="User" asp-action="DisplayProductByID" asp-route-id='@product.ProductId' asp-route-status="true" class="btn btn-secondary">
+                    <i class="bi bi-view-list"></i>View
+                </a>
+                <a asp-controller="User" asp-action="AddToCart" asp-route-id='@product.ProductId' asp-route-status="true" class="btn btn-primary">
+                    <i class="bi bi-bag-plus"></i>Add To Cart
+                </a>
+            </div>
+        </div>
+    }
+
+</div>

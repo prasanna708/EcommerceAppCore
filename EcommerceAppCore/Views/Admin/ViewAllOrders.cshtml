@@ -1,0 +1,66 @@
+﻿@model List<PurchaseAuditLog>
+
+@{
+    ViewData["Title"] = "ViewAllOrders";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2 class="text-center bg-info">View All Orders</h2>
+
+@if (Model != null && Model.Any())
+{
+    <div>
+        <table class="table">
+            <tr>
+                <th>Order Number</th>
+                <th>Order Id</th>
+                <th>Product Id</th>
+                <th>User Id</th>
+                <th>Product Name</th>
+                <th>Quantity</th>
+                <th>Total Price</th>
+                <th>Order Date and Time</th>
+                <th>Photo</th>
+            </tr>
+            @foreach (var product in Model)
+            {
+                <tr>
+                    <td>@product.OrderNumber</td>
+                    <td>@product.OrderId</td>
+                    <td>@product.ProductId</td>
+                    <td>@product.UserId</td>
+                    <td>@product.ProductName</td>
+                    <td>@product.Quantity</td>
+                    <td>&#8377;@product.TotalPrice</td>
+                    <td>@product.OrderDateAndTime</td>
+                    <td>
+                        <img src="@Url.Content("~/" + product.Photo)" height="40" width="80" alt='@product.ProductName' />
+                    </td>
+                </tr>
+            }
+            <tr>
+                <td colspan="8" align="right">
+                    <h3 class="text-success">
+                        Total Sales : &#8377;@ViewBag.Total
+                    </h3>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="8" align="center">
+                    <a asp-controller="Admin" asp-action="GetProducts" asp-route-status="true" class="btn btn-secondary">
+                        <i class="bi bi-skip-backward-fill"></i>
+                        Back to main Page
+                    </a>
+                </td>
+            </tr>
+        </table>
+    </div>
+}
+else
+{
+    <br />
+    <center>
+        <p class="text-danger">No Orders Placed Yet!</p>
+        <br />
+    </center>
+}

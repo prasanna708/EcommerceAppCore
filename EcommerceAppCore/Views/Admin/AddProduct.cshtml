@@ -1,0 +1,57 @@
+﻿@model Product
+
+@{
+    ViewData["Title"] = "AddProduct";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<style>
+    h2 {
+        background-color: #17a2b8;
+    }
+</style>
+
+<h2 class="text-center text-dark">Add Product</h2>
+
+<div>
+    <form asp-controller="Admin" asp-action="AddProduct" method="post" enctype="multipart/form-data">
+        <table cellpadding="8" align="center">
+            <tr>
+                <td>Product Name:</td>
+                <td>
+                    <input asp-for="Name" class="form-control" />
+                </td>
+            </tr>
+            <tr>
+                <td>Product Price:</td>
+                <td>
+                    <input asp-for="Price" class="form-control" />
+                </td>
+            </tr>
+            <tr>
+                <td>Quantity:</td>
+                <td>
+                    <input asp-for="Quantity" class="form-control" />
+                </td>
+            </tr>
+            <tr>
+                <td>Photo:</td>
+                <td>
+                    <input type="file" name="File" class="form-control" />
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center">
+                    <button type="submit" class="btn btn-outline-primary">Add</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+
+<div>
+    <a asp-action="GetProducts" asp-controller="Admin" asp-route-status="true" class="btn btn-secondary">
+        <i class="bi bi-skip-backward-fill"></i>
+        Back to Main Page
+    </a>
+</div>

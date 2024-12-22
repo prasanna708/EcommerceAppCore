@@ -1,0 +1,54 @@
+﻿@model Product
+
+@{
+    ViewData["Title"] = "EditProduct";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<style>
+    h2 {
+        background-color: #ffc107;
+    }
+</style>
+
+<h2 class="text-center text-light">Edit Product</h2>
+
+<div>
+    <form asp-controller="Admin" asp-action="EditProduct" method="post" enctype="multipart/form-data">
+        <table cellpadding="8" align="center">
+            <input type="hidden" asp-for="ProductId" />
+            <tr>
+                <td>Product Name:</td>
+                <td>
+                    <input asp-for="Name" class="form-control" />
+                </td>
+            </tr>
+            <tr>
+                <td>Product Price:</td>
+                <td>
+                    <input asp-for="Price" class="form-control" />
+                </td>
+            </tr>
+            <tr>
+                <td>Quantity:</td>
+                <td>
+                    <input asp-for="Quantity" class="form-control" />
+                </td>
+            </tr>
+            <tr>
+                <td>Photo:</td>
+                <td>
+                    <input type="file" name="File" class="form-control" />
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center">
+                    <button type="submit" class="btn btn-outline-primary">Add</button>
+                    <a asp-action="GetProducts" asp-controller="Admin" asp-route-status="true" class="btn btn-danger">
+                        Cancel
+                    </a>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>

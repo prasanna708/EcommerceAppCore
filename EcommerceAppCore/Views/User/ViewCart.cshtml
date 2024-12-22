@@ -1,0 +1,80 @@
+﻿@model List<Order>
+
+@{
+    ViewData["Title"] = "ViewCart";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+<h2 class="text-center bg-info">View Cart</h2>
+
+@if (Model != null && Model.Any())
+{
+    <table class="table">
+        <tr>
+            <th><label>Order Id</label></th>
+            <th><label>Product Id</label></th>
+            <th><label>User Id</label></th>
+            <th><label>Product Name</label></th>
+            <th><label>Quantity</label></th>
+            <th><label>Order Date And Time</label></th>
+            <th><label>Total Price</label></th>
+            <th><label>Photo</label></th>
+        </tr>
+        @foreach (var order in Model)
+        {
+            <tr>
+                <td>@order.OrderId</td>
+                <td>@order.ProductId</td>
+                <td>@order.UserId</td>
+                <td>@order.Name</td>
+                <td>@order.Quantity</td>
+                <td>@order.OrderDateAndTime</td>
+                <td>&#8377; @order.TotalPrice</td>
+                <td>
+                    <img src="@Url.Content("~/" + order.Photo)" height="40" width="80" alt="@order.Name" />
+                </td>
+                <td>
+                    <a asp-controller="User" asp-action="DeleteOrders" asp-route-id="@order.OrderId" asp-route-status="true" onclick="return confirm('Are you sure to delete this record?');" class="btn btn-danger">Cancel Order</a>
+                </td>
+            </tr>
+        }
+        <tr>
+            <td colspan="9" align="right">
+                <a asp-controller="User" asp-action="PlaceOrder" asp-route-id="@ViewData["uid"]" asp-route-status="true" class="btn btn-warning" onclick="return confirm('Are you sure to Place order of all products that are in cart?');">Place Order</a>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="9" align="left">
+                <button class="btn btn-secondary">
+                    <i class="bi bi-skip-backward-fill"></i>
+                    @Html.ActionLink("Back to main Page", "DisplayAllProducts", null, new { @class = "btn btn-secondary" })
+                </button>
+            </td>
+        </tr>
+    </table>
+}
+else
+{
+    <br />
+    <center>
+        <img src="https://rukminim2.flixcart.com/www/800/800/promos/16/05/2019/d438a32e-765a-4d8b-b4a6-520b560971e8.png?q=90" width="222" height="162" alt="no image" />
+    </center>
+    <br />
+    <div class="text-center">
+        Your cart is empty!
+    </div>
+    <br />
+    <div class="text-center">
+        <p class="fw-light fs-6">Add items to it now.</p>
+    </div>
+    <div class="text-center">
+        <a asp-controller="User" asp-action="DisplayProducts" asp-route-status="true" class="btn btn-primary btn-lg">Shop now</a>
+    </div>
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+}
+

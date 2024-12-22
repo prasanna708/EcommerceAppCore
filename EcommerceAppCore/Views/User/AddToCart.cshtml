@@ -1,0 +1,28 @@
+﻿@model Order
+
+@{
+    ViewData["Title"] = "AddToCart";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+<h2 class="text-center text-danger bg-dark">AddToCart</h2>
+
+<div>
+    <form asp-controller="User" asp-action="AddToCart">
+        <table align="center" cellpadding="8">
+            <input type="hidden" asp-for="ProductId" />
+            <tr>
+                <td><label>Enter quantity of Products you want to Purchase:</label></td>
+                <td>
+                    <input asp-for="Quantity" class="form-control" />
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center">
+                    <button type="submit" class="btn btn-success"></button>
+                    <a asp-controller="User" asp-action="DisplayProducts" asp-route-status="true" class="btn btn-danger">Cancel</a>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>

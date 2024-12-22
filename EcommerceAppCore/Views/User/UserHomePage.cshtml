@@ -1,0 +1,41 @@
+﻿
+@{
+    ViewData["Title"] = "UserHomePage";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+
+<h2 class="text-center" style="background-color:#0d6efd;">
+    Welcome User @if (ViewData["name"] != null)
+    {
+        @ViewData["name"]
+    }
+</h2>
+
+<div class="m-3">
+    <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="https://rukminim2.flixcart.com/fk-p-flap/1620/270/image/c857932113f9e5ad.jpg?q=20" class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item">
+                <img src="https://rukminim2.flixcart.com/fk-p-flap/1620/270/image/24985ee329643e05.jpg?q=20" class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item">
+                <img src="https://rukminim2.flixcart.com/fk-p-flap/1620/270/image/03988fdb408473ce.jpeg?q=20" class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item">
+                <img src="https://rukminim2.flixcart.com/fk-p-flap/1620/270/image/8505baa25cf466f3.jpeg?q=20" class="d-block w-100" alt="...">
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+</div>
+

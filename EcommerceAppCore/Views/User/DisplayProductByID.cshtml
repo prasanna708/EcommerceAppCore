@@ -1,0 +1,45 @@
+﻿@model Product
+
+@{
+    ViewData["Title"] = "DisplayProductByID";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+<h2 class="text-center bg-gradient">Displaying Product Details</h2>
+
+<table align="center" cellpadding="8">
+    <tr>
+        <td>
+            <img src="@Url.Content("~/" + Model.Photo)" width="200" height="200" alt="No Image" />
+        </td>
+        <td>
+            <table align="center" cellpadding="5">
+                <tr>
+                    <td>Product Id:</td>
+                    <td>
+                        @Model.ProductId
+                    </td>
+                </tr>
+                <tr>
+                    <td>Name:</td>
+                    <td>@Model.Name</td>
+                </tr>
+                <tr>
+                    <td>Price:</td>
+                    <td>&#8377;@Model.Price</td>
+                </tr>
+                <tr>
+                    <td>Available quamtity:</td>
+                    <td>@Model.Quantity</td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+
+<div>
+    <a asp-action="DisplayProducts" asp-controller="User" asp-route-status="true" class="btn btn-secondary">
+        <i class="bi bi-skip-backward-fill"></i>
+        Back to Main Page
+    </a>
+</div>
