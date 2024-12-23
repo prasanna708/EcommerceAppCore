@@ -1,0 +1,34 @@
+﻿@model DataLog
+
+<div>
+    <table cellpadding="4" align="center">
+        <tr>
+            <td>Product Id:</td>
+            <td>@Model.PropertyId</td>
+        </tr>
+        <tr>
+            <td>Property Effected:</td>
+            <td>@Model.PropertyEffected</td>
+        </tr>
+        <tr>
+            <td>Old Value:</td>
+            <td>@Model.OldValue</td>
+        </tr>
+        <tr>
+            <td>New Value:</td>
+            <td>@Model.NewValue</td>
+        </tr>
+        <tr>
+            <td>User:</td>
+            <td>@Model.UserId</td>
+        </tr>
+        <tr>
+            <td>Table Effected:</td>
+            <td>@Model.TableEffected</td>
+        </tr>
+        <tr>
+            <td>Modified Date & Time:</td>
+            <td>@Model.ActivityDateAndTime</td>
+        </tr>
+    </table>
+</div>

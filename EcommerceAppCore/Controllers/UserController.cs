@@ -76,12 +76,12 @@ namespace EcommerceAppCore.Controllers
         }
 
         //User Profile Action Method
-        public IActionResult UserProfile(string? id)
+        public async Task<IActionResult> UserProfile(string? id)
         {
             try
             {
                 id = HttpContext.Session.GetString("uid");
-                var user = _context.Users.Find(id);
+                var user = await _context.Users.FindAsync(id);
                 if (user == null)
                 {
                     return NotFound();

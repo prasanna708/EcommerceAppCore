@@ -15,20 +15,19 @@
     <nav class="navbar bg-dark border-bottom border-body" data-bs-theme="dark">
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container-fluid">
-                <a asp-controller="Admin" asp-action="AdminHomePage" class="navbar-brand">Home</a>
+                <a asp-controller="Finance" asp-action="FinanceHomePage" class="navbar-brand">Home</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a asp-controller="Admin" asp-action="GetProducts" asp-route-status="true" class="nav-link active" aria-current="page">Products List</a>
+                            <a asp-controller="Finance" asp-action="ViewSales" asp-route-status="true" class="nav-link active" aria-current="page">View Sales History</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-controller="Admin" asp-action="ViewAllOrders">View All Orders</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Admin" asp-action="TodaySales">Today's Sales</a>
+                            <a class="nav-link" asp-controller="User" asp-action="ViewCart" asp-route-status="true">
+                                <i class="bi bi-bag-check-fill"></i>View Cart
+                            </a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -36,25 +35,27 @@
                             </a>
                             <ul class="dropdown-menu">
                                 <li>
-                                    <a class="dropdown-item" asp-controller="Admin" asp-action="AdminProfile">
+                                    <a class="dropdown-item" asp-controller="Finance" asp-action="FinanceProfile">
                                         <i class="bi bi-person-circle"></i>Profile
                                     </a>
                                 </li>
-                                <li><a class="dropdown-item" asp-controller="Admin" asp-action="ViewUsers">View All Users</a></li>
-                                <li><a class="dropdown-item" asp-controller="Admin" asp-action="ActivityDetails">Activity Logs</a></li>
-                                <li><a class="dropdown-item" asp-controller="Admin" asp-action="StockLeft" asp-route-status="true">Stock Left</a></li>
+                                <li>
+                                    <a class="dropdown-item" asp-controller="User" asp-action="ViewOrders">
+                                        <i class="bi bi-bag-fill"></i>All Purchases
+                                    </a>
+                                </li>
                                 <li><hr class="dropdown-divider"></li>
                                 <li><a class="dropdown-item" asp-controller="Admin" asp-action="Login">Logout</a></li>
                             </ul>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-                        </li>
+                        @* <li class="nav-item"> *@
+                        @*     <a class="nav-link disabled" aria-disabled="true">Disabled</a> *@
+                        @* </li> *@
                     </ul>
-                    <form class="d-flex" role="search">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-success" type="submit">Search</button>
-                    </form>
+                    @* <form class="d-flex" role="search"> *@
+                    @*     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"> *@
+                    @*     <button class="btn btn-outline-success" type="submit">Search</button> *@
+                    @* </form> *@
                 </div>
             </div>
         </nav>
@@ -67,7 +68,6 @@
             @RenderBody()
         </main>
     </div>
-
     <footer class="border-top footer text-muted">
         <div class="container text-center">
             &copy; 2024 - All Rights Reserved.
@@ -76,6 +76,7 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     @* <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script> *@
     <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false) 
+
+    @* @await RenderSectionAsync("Scripts", required: false) *@
 </body>
 </html>

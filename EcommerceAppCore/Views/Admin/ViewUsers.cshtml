@@ -1,0 +1,36 @@
+﻿@model List<User>
+
+@{
+    ViewData["Title"] = "ViewUsers";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2 class="text-center bg-info">ViewUsers</h2>
+
+<div>
+    <table class="table table-bordered">
+        <tr>
+            <th>User Id</th>
+            <th>Full Name</th>
+            <th>Gender</th>
+            <th>Role</th>
+            <th>Mobile Number</th>
+            <th>Email Id</th>
+            <th>Date of Birth</th>
+            <th>Location</th>
+        </tr>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.UserId</td>
+                <td>@user.Name</td>
+                <td>@user.Gender</td>
+                <td>@user.Role</td>
+                <td>@user.MobileNumber</td>
+                <td>@user.Email</td>
+                <td>@user.Dob.ToShortDateString()</td>
+                <td>@user.Location</td>
+            </tr>
+        }
+    </table>
+</div>

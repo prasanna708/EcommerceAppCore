@@ -1,0 +1,46 @@
+﻿@model User
+
+@{
+    ViewData["Title"] = "FinanceProfile";
+    Layout = "~/Views/Shared/_FinanceLayout.cshtml";
+}
+
+<h2 class="text-center" style="background-color:#17a2b8;">User Profile</h2>
+
+<div>
+    <table cellpadding="8" align="center">
+        <tr>
+            <td>User Id: </td>
+            <td>@Model.UserId</td>
+        </tr>
+        <tr>
+            <td>Name: </td>
+            <td>@Model.Name</td>
+        </tr>
+        <tr>
+            <td>Gender: </td>
+            <td>@Model.Gender</td>
+        </tr>
+        <tr>
+            <td>Role: </td>
+            <td>@Model.Role</td>
+        </tr>
+        <tr>
+            <td>Mobile Number: </td>
+            <td>@Model.MobileNumber</td>
+        </tr>
+        <tr>
+            <td>Email: </td>
+            <td>@Model.Email</td>
+        </tr>
+        <tr>
+            <td>Date of Birth: </td>
+            <td>@Model.Dob.ToShortDateString()</td>
+        </tr>
+        <tr>
+            <td>Location: </td>
+            <td>@Model.Location</td>
+        </tr>
+    </table>
+</div>
+

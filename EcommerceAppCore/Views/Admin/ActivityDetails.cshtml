@@ -1,0 +1,91 @@
+﻿@model IEnumerable<ActivityLog>
+
+@{
+    ViewData["Title"] = "ActivityDetails";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2 class="text-center bg-secondary">Activity Log Details</h2>
+
+<div>
+    <table class="table table-bordered table-hover">
+        <tr class="table-dark">
+            <th>User Id</th>
+            <th>Action</th>
+            <th>Table Effected</th>
+            <th>Description</th>
+            <th>Activity Date & Time</th>
+            <th></th>
+        </tr>
+        @foreach (var log in Model)
+        {
+            <tr>
+                <td>@log.UserId</td>
+                <td>@log.Action</td>
+                <td>@log.TableEffected</td>
+                <td>@log.Details</td>
+                <td>@log.ActivityDateAndTime</td>
+                <td>
+                    @if (log.Action == "Update")
+                    {
+                        <!-- Button to trigger modal -->
+                        <button type="submit" class="btn btn-info" data-toggle="modal" data-target="#logDetailsModal" data-log-id="@log.UserId">
+                            View DataLog Details
+                        </button>
+                    }
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+
+<!-- Modal for displaying DataLog details -->
+<div class="modal fade" id="logDetailsModal" tabindex="-1" role="dialog" aria-labelledby="logDetailsModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="logDetailsModalLabel">DataLog Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="datalogDetailsBody">
+                <!-- Dynamic details will be injected here -->
+                Loading details...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- jQuery and Bootstrap JS for modal functionality -->
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // Populate modal with DataLog details when button is clicked
+        $('#logDetailsModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget); // Button that triggered the modal
+            var logId = button.data('log-id');
+
+            var modal = $(this);
+            modal.find('.modal-body').html('Loading details...');
+
+            // Fetch the DataLog details using AJAX
+            $.ajax({
+                url: '@Url.Action("GetDataLogDetails", "Admin")', // Controller action to fetch DataLog details
+                type: 'GET',
+                data: { id: logId },
+                success: function (data) {
+                    modal.find('.modal-body').html(data); // Inject the DataLog details into the modal
+                },
+                error: function () {
+                    modal.find('.modal-body').html('Failed to load DataLog details.');
+                }
+            });
+        });
+    </script>
+}

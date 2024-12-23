@@ -3,6 +3,7 @@ using EcommerceAppCore.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using System.Data;
 using System.Text;
 
 namespace EcommerceAppCore.Controllers
@@ -107,6 +108,10 @@ namespace EcommerceAppCore.Controllers
                     if (loginUser.Role == "User")
                     {
                         return RedirectToAction("UserHomePage" , "User");
+                    }
+                    if (loginUser.Role == "Finance")
+                    {
+                        return RedirectToAction("FinaceHomePage", "Finance");
                     }
                     return View(user);
                 }
@@ -299,19 +304,25 @@ namespace EcommerceAppCore.Controllers
                 if (response.IsSuccessStatusCode)
                 {
                     TempData["success"] = "Product updated successfully...";
-                    string details = "Product" + product.Name + " Updated.";
-                    string? uid = HttpContext.Session.GetString("Name");
-                    ActivityLogDetails(uid, "Update", "Products", product.ProductId, details);
-                    if (oldName != null && product.Name != null)
+                    string details;
+                    string? uid = HttpContext.Session.GetString("uid");
+                    //ActivityLogDetails(uid, "Update", "Products", product.ProductId, details);
+                    if (oldName != null && product.Name != null && oldName != product.Name)
                     {
+                        details = "Product " + oldName + " Updated.";
+                        ActivityLogDetails(uid, "Update", "Products", product.ProductId, details);
                         DataLogDetails("Products", product.ProductId, "Name", oldName, product.Name, uid);
                     }
-                    if (oldPrice != null && product.Price != null)
+                    if (oldPrice != null && product.Price != null && oldPrice != product.Price)
                     {
+                        details = "Price " + oldPrice + " Updated.";
+                        ActivityLogDetails(uid, "Update", "Products", product.ProductId, details);
                         DataLogDetails("Products", product.ProductId, "Price", oldPrice.ToString(), product.Price.ToString(), uid);
                     }
-                    if (oldQuantity != null && product.Quantity != null)
+                    if (oldQuantity != null && product.Quantity != null && oldQuantity != product.Quantity)
                     {
+                        details = "Quantity " + oldQuantity + " Updated.";
+                        ActivityLogDetails(uid, "Update", "Products", product.ProductId, details);
                         DataLogDetails("Products", product.ProductId, "Quantity", oldQuantity.ToString(), product.Quantity.ToString(), uid);
                     }
                     return RedirectToAction("GetProducts","Admin" , new { status = true });
@@ -367,12 +378,12 @@ namespace EcommerceAppCore.Controllers
         }
 
         //Admin Profile Action Method
-        public IActionResult AdminProfile(string? id)
+        public async Task<IActionResult> AdminProfile(string? id)
         {
             try
             {
                 id = HttpContext.Session.GetString("uid");
-                var user = _context.Users.Find(id);
+                var user = await _context.Users.FindAsync(id);
                 if (user == null)
                 {
                     return NotFound();
@@ -386,5 +397,94 @@ namespace EcommerceAppCore.Controllers
             }
         }
 
+        //Action method for displaying Today's sales
+        public async Task<IActionResult> TodaySales()
+        {
+            try
+            {
+                DateTime date = DateTime.Now.AddDays(1);
+                var obj = await _context.PurchaseAuditLogs.Where(o => o.OrderDateAndTime >= DateTime.Today && o.OrderDateAndTime < date).ToListAsync();
+                var sum = obj.Sum(o => o.TotalPrice);
+                ViewBag.TotalSales = Convert.ToInt32(sum);
+                return View(obj);
+            }
+            catch (Exception ex)
+            {
+                ErrorLogDetails(ex, "TodaySales");
+                throw;
+            }
+        } 
+
+        //Action method for displaying products stock left 
+        public async Task<IActionResult> StockLeft(bool? status)
+        {
+            try
+            {
+                var response = await _httpClient.GetAsync(apiUrl + $"?status={status}");
+                if (response.IsSuccessStatusCode)
+                {
+                    var content = await response.Content.ReadAsStringAsync();
+                    var productlist = JsonConvert.DeserializeObject<List<Product>>(content);
+                    return View(productlist);
+                }
+                return View();
+            }
+            catch (Exception ex)
+            {
+                ErrorLogDetails(ex, "StockLeft");
+                throw;
+            }
+        }
+
+        //Displaying all users
+        public async Task<IActionResult> ViewUsers()
+        {
+            try
+            {
+                var users = await _context.Users.ToListAsync();
+                return View(users);
+            }
+            catch (Exception ex)
+            {
+                ErrorLogDetails(ex, "ViewUsers");
+                throw;
+            }
+        }
+
+        //Activity log Details Action Method
+        public async Task<IActionResult> ActivityDetails()
+        {
+            try
+            {
+                var logs = await _context.ActivityLogs.ToListAsync();
+                return View(logs);
+            }
+            catch (Exception ex)
+            {
+                ErrorLogDetails(ex, "ActivityDetails");
+                throw;
+            }
+        }
+
+        public async Task<IActionResult> GetDataLogDetails(string? id)
+        {
+            try
+            {
+                var log = await _context.DataLogs.FirstOrDefaultAsync(l => l.UserId == id);
+                if (log == null)
+                {
+                    return Content("No DataLog found for this activity.");
+                }
+
+                // Render a partial view with the DataLog details
+                return PartialView("_DataLogDetails", log);
+            }
+            catch (Exception ex)
+            {
+                ErrorLogDetails(ex, "GetDataLogDetails");
+                throw;
+            }
+        }
     }
+
 }

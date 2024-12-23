@@ -1,0 +1,41 @@
+﻿@model List<Product>
+
+@{
+    ViewData["Title"] = "StockLeft";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<style>
+    .products {
+        display: grid;
+        grid-template-columns: repeat(4,auto);
+        color: black;
+    }
+
+    .product {
+        border: 2px solid;
+        background-color: antiquewhite;
+        padding: 20px;
+        margin: 20px;
+        border-radius: 20px;
+    }
+
+    .products :hover {
+        transform: scale(1.05);
+        box-shadow: 0 0 3px black;
+    }
+</style>
+
+<h2 class="bg-danger text-center">Stock Left</h2>
+
+<div class="products">
+    @foreach (var product in Model)
+    {
+        <div class="product">
+            <img src="@Url.Content("~/" + product.Photo)" height="250" width="150" alt='@product.Name' />
+            <p>Product Name: @product.Name</p>
+            <p class="text-danger">Stock Left : @product.Quantity</p>
+        </div>
+    }
+</div>
+

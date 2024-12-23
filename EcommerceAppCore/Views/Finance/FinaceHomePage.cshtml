@@ -1,0 +1,13 @@
+﻿
+@{
+    ViewData["Title"] = "FinaceHomePage";
+    Layout = "~/Views/Shared/_FinanceLayout.cshtml";
+}
+
+<h2 class="text-center bg-info">
+    Welcome to Finance HomePage @if (ViewData["name"] != null)
+    {
+        @ViewData["name"]
+    }
+</h2>
+
