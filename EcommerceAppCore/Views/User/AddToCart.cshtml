@@ -19,8 +19,12 @@
             </tr>
             <tr>
                 <td colspan="2" align="center">
-                    <button type="submit" class="btn btn-success"></button>
-                    <a asp-controller="User" asp-action="DisplayProducts" asp-route-status="true" class="btn btn-danger">Cancel</a>
+                    <button type="submit" class="btn btn-success">
+                        <i class="bi bi-plus-circle-fill"></i>Buy
+                    </button>
+                    <a asp-controller="User" asp-action="DisplayProducts" asp-route-status="true" class="btn btn-danger">
+                        <i class="bi bi-x-circle"></i>Cancel
+                    </a>
                 </td>
             </tr>
         </table>

@@ -10,6 +10,15 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+        body {
+            background: linear-gradient(to bottom, #F7F1E1, #D8C9A3);
+            font-family: Arial, sans-serif;
+            color: #333333; /* Dark gray text for readability */
+            margin: 0;
+            padding: 0;
+        }
+    </style>
 </head>
 <body>
     <nav class="navbar bg-dark border-bottom border-body" data-bs-theme="dark">
@@ -47,14 +56,14 @@
                                 <li><a class="dropdown-item" asp-controller="Admin" asp-action="Login">Logout</a></li>
                             </ul>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-                        </li>
+                        @* <li class="nav-item"> *@
+                        @*     <a class="nav-link disabled" aria-disabled="true">Disabled</a> *@
+                        @* </li> *@
                     </ul>
-                    <form class="d-flex" role="search">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-success" type="submit">Search</button>
-                    </form>
+                    @* <form class="d-flex" role="search"> *@
+                    @*     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"> *@
+                    @*     <button class="btn btn-outline-success" type="submit">Search</button> *@
+                    @* </form> *@
                 </div>
             </div>
         </nav>

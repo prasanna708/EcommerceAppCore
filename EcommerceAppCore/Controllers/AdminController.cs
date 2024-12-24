@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using System.Data;
 using System.Text;
+using static EcommerceAppCore.Models.ActivityViewModel;
 
 namespace EcommerceAppCore.Controllers
 {
@@ -75,6 +76,11 @@ namespace EcommerceAppCore.Controllers
             _context.SaveChanges();
         }
 
+        //Home Page
+        public IActionResult Home()
+        {
+            return View();
+        }
 
         //Login Action Method(GET)
         public async Task<IActionResult> Login()
@@ -452,12 +458,30 @@ namespace EcommerceAppCore.Controllers
         }
 
         //Activity log Details Action Method
-        public async Task<IActionResult> ActivityDetails()
+        public async Task<IActionResult> ActivityDetails(int page = 1, int pageSize = 10)
         {
             try
             {
-                var logs = await _context.ActivityLogs.ToListAsync();
-                return View(logs);
+                var totalRecords = await _context.ActivityLogs.CountAsync();
+                var totalPages = (int)Math.Ceiling(totalRecords / (double)pageSize);
+                if (page < 1)
+                {
+                    page = 1;
+                }
+                if (page > totalPages)
+                {
+                    page = totalPages;
+                }
+                var logs = await _context.ActivityLogs.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
+                var model = new ActivityViewModel
+                {
+                    Logs = logs,
+                    CurrentPage = page,
+                    TotalPages = totalPages,
+                    PageSize = pageSize
+                };
+
+                return View(model);
             }
             catch (Exception ex)
             {

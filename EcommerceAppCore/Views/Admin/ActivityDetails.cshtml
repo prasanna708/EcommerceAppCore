@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ActivityLog>
+﻿@model ActivityViewModel
 
 @{
     ViewData["Title"] = "ActivityDetails";
@@ -17,7 +17,7 @@
             <th>Activity Date & Time</th>
             <th></th>
         </tr>
-        @foreach (var log in Model)
+        @foreach (var log in Model.Logs)
         {
             <tr>
                 <td>@log.UserId</td>
@@ -25,67 +25,81 @@
                 <td>@log.TableEffected</td>
                 <td>@log.Details</td>
                 <td>@log.ActivityDateAndTime</td>
-                <td>
-                    @if (log.Action == "Update")
-                    {
-                        <!-- Button to trigger modal -->
-                        <button type="submit" class="btn btn-info" data-toggle="modal" data-target="#logDetailsModal" data-log-id="@log.UserId">
-                            View DataLog Details
-                        </button>
-                    }
-                </td>
+                @* <td> *@
+                @*     @if (log.Action == "Update") *@
+                @*     { *@
+                @*         <!-- Button to trigger modal --> *@
+                @*         <button type="submit" class="btn btn-info" data-toggle="modal" data-target="#logDetailsModal" data-log-id="@log.UserId"> *@
+                @*             View DataLog Details *@
+                @*         </button> *@
+                @*     } *@
+                @* </td> *@
             </tr>
         }
     </table>
-</div>
+    <!-- Pagination Controls -->
+    <div class="pagination" align="center">
+        @if (Model.CurrentPage > 1)
+        {
+            <a href="@Url.Action("ActivityDetails", new { page = Model.CurrentPage - 1, pageSize = Model.PageSize })" class="btn btn-secondary"><i class="bi bi-skip-backward-fill">Prev</i></a>
+        }
 
-<!-- Modal for displaying DataLog details -->
-<div class="modal fade" id="logDetailsModal" tabindex="-1" role="dialog" aria-labelledby="logDetailsModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="logDetailsModalLabel">DataLog Details</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body" id="datalogDetailsBody">
-                <!-- Dynamic details will be injected here -->
-                Loading details...
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
-        </div>
+        <span>Page @Model.CurrentPage of @Model.TotalPages</span>
+
+        @if (Model.CurrentPage < Model.TotalPages)
+        {
+            <a href="@Url.Action("ActivityDetails", new { page = Model.CurrentPage + 1, pageSize = Model.PageSize })" class="btn btn-secondary">Next<i class="bi bi-skip-forward-fill"></i></a>
+        }
     </div>
 </div>
 
-<!-- jQuery and Bootstrap JS for modal functionality -->
-@section Scripts {
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+@* <!-- Modal for displaying DataLog details --> *@
+@* <div class="modal fade" id="logDetailsModal" tabindex="-1" role="dialog" aria-labelledby="logDetailsModalLabel" aria-hidden="true"> *@
+@*     <div class="modal-dialog" role="document"> *@
+@*         <div class="modal-content"> *@
+@*             <div class="modal-header"> *@
+@*                 <h5 class="modal-title" id="logDetailsModalLabel">DataLog Details</h5> *@
+@*                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"> *@
+@*                     <span aria-hidden="true">&times;</span> *@
+@*                 </button> *@
+@*             </div> *@
+@*             <div class="modal-body" id="datalogDetailsBody"> *@
+@*                 <!-- Dynamic details will be injected here --> *@
+@*                 Loading details... *@
+@*             </div> *@
+@*             <div class="modal-footer"> *@
+@*                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> *@
+@*             </div> *@
+@*         </div> *@
+@*     </div> *@
+@* </div> *@
 
-    <script>
-        // Populate modal with DataLog details when button is clicked
-        $('#logDetailsModal').on('show.bs.modal', function (event) {
-            var button = $(event.relatedTarget); // Button that triggered the modal
-            var logId = button.data('log-id');
+@* <!-- jQuery and Bootstrap JS for modal functionality --> *@
+@* @section Scripts { *@
+@*     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> *@
+@*     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script> *@
 
-            var modal = $(this);
-            modal.find('.modal-body').html('Loading details...');
+@*     <script> *@
+@*         // Populate modal with DataLog details when button is clicked *@
+@*         $('#logDetailsModal').on('show.bs.modal', function (event) { *@
+@*             var button = $(event.relatedTarget); // Button that triggered the modal *@
+@*             var logId = button.data('log-id'); *@
 
-            // Fetch the DataLog details using AJAX
-            $.ajax({
-                url: '@Url.Action("GetDataLogDetails", "Admin")', // Controller action to fetch DataLog details
-                type: 'GET',
-                data: { id: logId },
-                success: function (data) {
-                    modal.find('.modal-body').html(data); // Inject the DataLog details into the modal
-                },
-                error: function () {
-                    modal.find('.modal-body').html('Failed to load DataLog details.');
-                }
-            });
-        });
-    </script>
-}
+@*             var modal = $(this); *@
+@*             modal.find('.modal-body').html('Loading details...'); *@
+
+@*             // Fetch the DataLog details using AJAX *@
+@*             $.ajax({ *@
+@*                 url: '@Url.Action("GetDataLogDetails", "Admin")', // Controller action to fetch DataLog details *@
+@*                 type: 'GET', *@
+@*                 data: { id: logId }, *@
+@*                 success: function (data) { *@
+@*                     modal.find('.modal-body').html(data); // Inject the DataLog details into the modal *@
+@*                 }, *@
+@*                 error: function () { *@
+@*                     modal.find('.modal-body').html('Failed to load DataLog details.'); *@
+@*                 } *@
+@*             }); *@
+@*         }); *@
+@*     </script> *@
+@* } *@

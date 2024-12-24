@@ -5,7 +5,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<EcommerceDbContext>();
-builder.Services.AddHttpClient();   //
+builder.Services.AddHttpClient();   //API 
 //builder.Services.AddTransient<ApiService>();  //Adding API Service
 builder.Services.AddDistributedMemoryCache();   //Add in-memory cache for sessions
 builder.Services.AddSession(options =>          
@@ -35,6 +35,6 @@ app.UseSession();   //Enable session middleware
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Admin}/{action=Login}/{id?}");
+    pattern: "{controller=Admin}/{action=Home}/{id?}");
 
 app.Run();

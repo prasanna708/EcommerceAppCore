@@ -1,0 +1,33 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Home</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <style>
+        body {
+            background-image: url('https://images.pexels.com/photos/1435752/pexels-photo-1435752.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1');
+            background-size: cover;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h1 class="text-center bg-dark text-danger text-decoration-underline m-2">Welcome To Online Shopping</h1>
+        <div>
+            <center>
+                <h3>
+                    <a asp-controller="Admin" asp-action="Login" class="btn btn-primary">Login</a>
+                    <a asp-controller="Admin" asp-action="Registration" class="btn btn-secondary">Signup/Register</a>
+                </h3>
+            </center>
+        </div>
+    </div>
+</body>
+</html>
